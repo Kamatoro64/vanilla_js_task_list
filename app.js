@@ -11,6 +11,12 @@ loadEventListeners();
 function loadEventListeners() {
 	// Add task event
 	form.addEventListener('submit', addTask);
+
+	// Remove task event. Event delegation required here since li's are dynamically generated we we're adding the event listener to the ul element itself
+	taskList.addEventListener('click', removeTask);
+
+	// Clear task event
+	clearBtn.addEventListener('click', clearTasks);
 }
 
 // Add task
@@ -48,12 +54,17 @@ function addTask(e) {
 	taskInput.value = '';
 	//console.log(li);
 
-
-
-
-
-
-
-
 	e.preventDefault()
 }
+
+// Remove Task
+function removeTask(e) {
+	if (e.target.parentElement.classList.contains('delete-item')) {
+		if (confirm('Are you sure?')) {
+			// x icon parent is the a tag, a tag parent element is the li element, which we want to remove()
+			e.target.parentElement.parentElement.remove();
+		}
+	}
+}
+
+// Clear Tasks
