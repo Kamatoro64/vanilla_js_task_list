@@ -68,3 +68,13 @@ function removeTask(e) {
 }
 
 // Clear Tasks
+
+function clearTasks() {
+	// Implementation 1 clearing the innerHTML of the ul (taskList)
+	// taskList.innerHTML = '';
+
+	// Faster! https://jsperf.com/innerhtml-vs-removechild/47
+	while (taskList.firstChild) {
+		taskList.removeChild(taskList.firstChild);
+	}
+}
